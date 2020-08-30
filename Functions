@@ -1,0 +1,78 @@
+function createTimeDrivenTriggers() {
+  ScriptApp.newTrigger('myFunction')
+      .timeBased()
+      .everyHours(3)
+      .create();
+}
+function daysElapsed() {
+  var eventEnd = new Date('September 17, 2020 15:00:00 -0400').valueOf();
+  var now = new Date().valueOf();
+  var minute = 1000*60;
+  var hour = 60*minute;
+  var day=24*hour;
+  var diff=eventEnd - now;
+  var daysElapsed =21-(diff/day);
+  return daysElapsed;
+}
+function days() {
+  return Math.floor(daysElapsed())+1;
+}
+
+//Coin packs
+function CPEnergy() {
+  var hours= Math.floor(daysElapsed()*24);
+  var totalCPEnergy = (Math.ceil(days()/7)*84)+(days()*9)+30+hours;
+  return totalCPEnergy;
+}
+function CPUCLTotal() {
+  var dailyLogin = days()*25;
+  var firstPath = days()*65;
+  var repeatSGs = (Math.floor((CPEnergy()-(days()*15))/3)*4);
+  var totalUCL = dailyLogin + firstPath + repeatSGs;
+  return totalUCL;
+}
+function CPChampTotal() {
+  return (Math.floor(CPEnergy()/3)*6)+(Math.floor(days()/6)*100);
+}
+
+//No coin packs
+function NoCPEnergy() {
+  var hours= Math.floor(daysElapsed()*24);
+  var totalNoCPEnergy = (days()*9)+30+hours;
+  return totalNoCPEnergy;
+}
+function NoCPUCLTotal() {
+  var dailyLogin = days()*25;
+  var firstPath = days()*65;
+  var repeatSGs = (Math.floor((NoCPEnergy()-(days()*15))/3)*4);
+  var totalUCL = dailyLogin + firstPath + repeatSGs;
+  return totalUCL;
+}
+function NoCPChampTotal() {
+  return (Math.floor(NoCPEnergy()/3)*6);
+}
+
+function addZero(input) {
+  var newInput = Math.floor(input);
+  if(newInput <10) {
+    return "0" + newInput;
+  }
+  else {
+    return newInput;
+  }
+}
+function UCLCountdown(){
+  var eventEnd = new Date('September 17, 2020 15:00:00 -0400').valueOf();
+  var now = new Date().valueOf();
+  var minute = 1000*60;
+  var hour = 60*minute;
+  var day=24*hour;
+  var diff=eventEnd - now;
+  var daysRemaining = diff/day;
+  var daysRemain = addZero(daysRemaining);
+  var hoursRemaining = (daysRemaining - daysRemain)*24;
+  var hoursRemain= addZero(hoursRemaining);
+  var minutesRemaining = (hoursRemaining - hoursRemain)*60;
+  var minutesRemain = addZero(minutesRemaining);
+  return daysRemain + ":" + hoursRemain;
+}
