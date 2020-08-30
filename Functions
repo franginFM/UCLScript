@@ -1,8 +1,5 @@
 function createTimeDrivenTriggers() {
-  ScriptApp.newTrigger('myFunction')
-      .timeBased()
-      .everyHours(3)
-      .create();
+  ScriptApp.newTrigger('myFunction').timeBased().everyHours(1).create();
 }
 function daysElapsed() {
   var eventEnd = new Date('September 17, 2020 15:00:00 -0400').valueOf();
