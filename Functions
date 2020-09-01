@@ -1,5 +1,5 @@
 function createTimeDrivenTriggers() {
-  ScriptApp.newTrigger('myFunction').timeBased().everyHours(1).create();
+  ScriptApp.newTrigger('myFunction').timeBased().everyHours(3).create();
 }
 function daysElapsed() {
   var eventEnd = new Date('September 17, 2020 15:00:00 -0400').valueOf();
@@ -58,6 +58,16 @@ function addZero(input) {
     return newInput;
   }
 }
+
+function hourZero(input) {
+  var newInput = Math.ceil(input);
+  if(newInput < 10 && newInput >= 0) {
+    return "0" + newInput;
+  }
+  else {
+    return newInput;
+  }
+}
 function UCLCountdown(){
   var eventEnd = new Date('September 17, 2020 15:00:00 -0400').valueOf();
   var now = new Date().valueOf();
@@ -68,8 +78,6 @@ function UCLCountdown(){
   var daysRemaining = diff/day;
   var daysRemain = addZero(daysRemaining);
   var hoursRemaining = (daysRemaining - daysRemain)*24;
-  var hoursRemain= addZero(hoursRemaining);
-  var minutesRemaining = (hoursRemaining - hoursRemain)*60;
-  var minutesRemain = addZero(minutesRemaining);
+  var hoursRemain= hourZero(hoursRemaining);
   return daysRemain + ":" + hoursRemain;
 }
